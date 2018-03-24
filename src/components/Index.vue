@@ -40,7 +40,10 @@ footer {
         <header>header</header>
         <div class="flow" v-infinite-scroll="loadMore" infinite-scroll-disabled="isLoading">
             <div v-for="item in list" class="flow-box" :style="{backgroundImage: 'url('+ item.img +')'}" :key="item.aid">
-                <img v-img="{title : item.desc}" :src="item.img" />
+                <img @click="loadAlbum(item.aid)" :src="item.img" />
+            </div>
+            <div ref="albumImage" class="album-images">
+                <img :key="item.img" v-for="item in albumImages" v-img="{group:aid}" :src="item.img" />
             </div>
         </div>
         <footer>footer</footer>
@@ -54,8 +57,11 @@ export default {
         return {
             isLoading: false,
             list: [],
+            aid: 0,
+            albumImages: [],
             page: 1,
             size: 16
+
         }
     },
     mounted () {
@@ -78,6 +84,29 @@ export default {
             })
             return p
         },
+        loadAlbum (aid) {
+            var vm = this
+            vm.isLoading = true
+            var p = vm.fetchGet('http://api.xingganquan.com/albums/images', {
+                params: {
+                    aid: aid
+                }
+            })
+            p.then(function (da) {
+                if (da.c === 0) {
+                    vm.albumImages = da.d
+                    vm.aid = aid
+                    vm.$nextTick(function () {
+                        var albumImage = vm.$refs.albumImage
+                        var item = albumImage.childNodes[0]
+                        item.click()
+                    })
+                } else {
+                    // @todo api error handler
+                }
+                vm.isLoading = false
+            })
+        },
         loadMore () {
             var vm = this
             vm.isLoading = true
@@ -92,7 +121,6 @@ export default {
                     vm.list = vm.list.concat(da.d)
                     vm.page += 1
                 } else {
-
                     // @todo api error handler
                 }
                 vm.isLoading = false
