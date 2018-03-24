@@ -4,7 +4,7 @@
 }
 header {
     width:100%;
-    height:560px;
+    height:200px;
     background:url('../assets/banner.jpeg') center center no-repeat;
     background-size:cover;
     text-indent:-9999px;
@@ -14,22 +14,28 @@ footer {
     text-indent:-9999px;
 }
 .flow {
-    width:1500px;
+    width:1120px;
     margin:0 auto;
     display:flex;
     flex-wrap: wrap;
     justify-content:space-between;
 }
 .flow-box {
-    width:372px;
-    height:372px;
+    width:550px;
+    height:600px;
     background-color:#eee;
     background-size:cover;
-    margin-bottom:4px;
+    margin-bottom:20px;
 }
 .flow-box img {
     width:372px;
     height:372px;
+    opacity:0;
+}
+.album-images {
+    position:absolute;
+    width:1px;
+    height:1px;
     opacity:0;
 }
 
@@ -60,8 +66,7 @@ export default {
             aid: 0,
             albumImages: [],
             page: 1,
-            size: 16
-
+            size: 10
         }
     },
     mounted () {
