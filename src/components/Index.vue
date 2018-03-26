@@ -4,8 +4,8 @@
 }
 header {
     width:100%;
-    height:200px;
-    background:url('../assets/banner.jpeg') center center no-repeat;
+    height:400px;
+    background:url('../assets/banner.jpeg') top center no-repeat;
     background-size:cover;
     text-indent:-9999px;
     margin-bottom:40px;
@@ -37,6 +37,7 @@ footer {
     width:1px;
     height:1px;
     opacity:0;
+    overflow:hidden;
 }
 
 </style>
@@ -45,11 +46,18 @@ footer {
     <div class="index wrapper">
         <header>header</header>
         <div class="flow" v-infinite-scroll="loadMore" infinite-scroll-disabled="isLoading">
-            <div v-for="item in list" class="flow-box" :style="{backgroundImage: 'url('+ item.img +')'}" :key="item.aid">
+            <div @click="loadAlbum(item.aid)" v-for="item in list" class="flow-box" :style="{backgroundImage: 'url('+ item.img +')'}" :key="item.aid">
                 <img @click="loadAlbum(item.aid)" :src="item.img" />
             </div>
+            <!--
+            <div @click="loadAlbum(item.aid)" v-for="item in list" class="flow-box" :style="{backgroundImage: 'url(https://imgsa.baidu.com/exp/w=480/sign=efbf411a6e224f4a5799721b39f79044/342ac65c10385343a6b6b01d9013b07eca808894.jpg)'}" :key="item.aid">
+            </div>
+            -->
             <div ref="albumImage" class="album-images">
                 <img :key="item.img" v-for="item in albumImages" v-img="{group:aid}" :src="item.img" />
+                <!--
+                <img :key="item.img" v-for="item in albumImages" v-img="{group:aid}" src="https://imgsa.baidu.com/exp/w=480/sign=efbf411a6e224f4a5799721b39f79044/342ac65c10385343a6b6b01d9013b07eca808894.jpg" />
+                -->
             </div>
         </div>
         <footer>footer</footer>
@@ -90,6 +98,7 @@ export default {
             return p
         },
         loadAlbum (aid) {
+            console.log(aid)
             var vm = this
             vm.isLoading = true
             var p = vm.fetchGet('http://api.xingganquan.com/albums/images', {
