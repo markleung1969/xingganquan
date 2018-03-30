@@ -3,12 +3,25 @@
     background-color:#fff;
 }
 header {
+	padding-top:650px;
     width:100%;
-    height:400px;
-    background:url('../assets/banner.jpeg') top center no-repeat;
+    height:800px;
+    background:url('../assets/banner2.png') center center no-repeat;
     background-size:cover;
-    text-indent:-9999px;
     margin-bottom:40px;
+}
+@font-face {
+	font-family: marzo-w00-regular;
+	src: url('../assets/font/marzo_w00_regular.woff')
+}
+header p{
+	font-size:32px;
+	line-height:1.2em;
+	color:white;
+	font-family: marzo-w00-regular, fantasy;
+	width:200px;
+	margin:0 auto;
+	font-weight:200;
 }
 footer {
     text-indent:-9999px;
@@ -44,7 +57,10 @@ footer {
 
 <template>
     <div class="index wrapper">
-        <header>header</header>
+        <header>
+			<p>性敢圈</p>
+			<p>xingganquan.com</p>
+		</header>
         <div class="flow" v-infinite-scroll="loadMore" infinite-scroll-disabled="isLoading">
             <div @click="loadAlbum(item.aid)" v-for="item in list" class="flow-box" :style="{backgroundImage: 'url('+ item.img +')'}" :key="item.aid">
                 <img @click="loadAlbum(item.aid)" :src="item.img" />
