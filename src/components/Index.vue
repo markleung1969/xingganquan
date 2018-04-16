@@ -78,20 +78,10 @@ header p{
 
 <template>
     <div class="index">
-		<!--
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand">xingganquan.com</a>
-				</div>
-			</div>
-		</nav>
-		-->
         <header class="container-fluid">
 			<p>性敢圈</p>
 			<p>xingganquan.com</p>
 		</header>
-
         <div class="flow" v-infinite-scroll="loadMore" infinite-scroll-disabled="isLoading">
 			<div @click="loadAlbum(item.aid)" v-for="item in list" class="flow-box" :style="{backgroundImage: 'url('+ item.img +')'}" :key="item.aid">
 				<img @click="loadAlbum(item.aid)" :src="item.img" />
